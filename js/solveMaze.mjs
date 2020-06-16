@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function(){
         queue.enqueue(start);
 
         while (queue.count() > 0) {
-            await timer(50);
+            await timer(delay);
             const current = queue.dequeue();
 
             view.makeCurrent(current);
@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
         while (stack.count() > 0) {
 
-            await timer(50);
+            await timer(delay);
             const current = stack.pop();
 
             view.makeCurrent(current);
@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
         while (list.count() > 0) {
 
-            await timer(50);
+            await timer(delay);
             const current = list.get();
 
             view.makeCurrent(current);
