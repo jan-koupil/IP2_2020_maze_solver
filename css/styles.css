@@ -1,0 +1,47 @@
+
+#maze {
+    --tile-size: 4vh;
+    display: grid;
+    padding: 1px;
+    grid-auto-columns: var(--tile-size);
+    grid-auto-rows: var(--tile-size);
+    background-color: gray;
+    grid-gap:1px;
+    justify-content:center;
+    align-content:center;
+}
+
+#maze > div.tile {
+    background-color: white;
+    cursor: pointer;
+}
+#maze > div.tile:hover {
+    position: relative;
+    z-index: 50;
+    outline: 2px solid cyan;
+}
+
+#maze > div.wall {
+    background-color: black;
+}
+
+#maze > div.current {
+    background-color: brown;
+}
+
+#maze > div.visited {
+    background-color: lightgray;
+}
+
+#maze > div.expected {
+    background-color: yellow;
+}
+
+#maze > div.expected:before {
+    content: "?";
+}
+
+#maze > div.exit {
+    background-color: greenyellow;
+}
+
