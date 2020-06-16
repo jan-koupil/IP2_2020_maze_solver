@@ -24,5 +24,6 @@ const map = [
 ];
 
 const exit = new Vector(24,14);
+const start = new Vector(1,1);
 
-export {map, exit}
+export {map, start, exit}

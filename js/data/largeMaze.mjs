@@ -23,5 +23,6 @@ const map =[
     [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 ];
 const exit = new Vector(7,15);
+const start = new Vector(1,1);
 
-export {map, exit}
+export {map, start, exit}

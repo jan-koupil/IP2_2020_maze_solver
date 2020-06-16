@@ -6,9 +6,9 @@ import {Queue} from "./dynamicStructures.mjs";
 import {Stack} from "./dynamicStructures.mjs";
 import {SortList} from "./dynamicStructures.mjs";
 
-// import {map, exit} from "./data/simpleMaze.mjs";
-import {map, exit} from "./data/largeMaze.mjs";
-// import {map, exit} from "./data/countryMap.mjs";
+// import {map, start, exit} from "./data/simpleMaze.mjs";
+import {map, start, exit} from "./data/largeMaze.mjs";
+// import {map, start, exit} from "./data/countryMap.mjs";
 
 
 const delay = 150;
@@ -18,8 +18,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     const view = new MazeView("maze", map, exit,);
     const maze = new Maze(map);
-
-    const start = new Vector(1,1);
+    
     maze.setMark(start, true);
 
     start.step = 0;
