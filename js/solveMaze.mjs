@@ -7,11 +7,11 @@ import {Stack} from "./dynamicStructures.mjs";
 import {SortList} from "./dynamicStructures.mjs";
 
 // import {map, start, exit} from "./data/simpleMaze.mjs";
-import {map, start, exit} from "./data/largeMaze.mjs";
-// import {map, start, exit} from "./data/countryMap.mjs";
+// import {map, start, exit} from "./data/largeMaze.mjs";
+import {map, start, exit} from "./data/countryMap.mjs";
 
 
-const delay = 150;
+const delay = 50;
 
 
 window.addEventListener('DOMContentLoaded', function(){
@@ -19,29 +19,33 @@ window.addEventListener('DOMContentLoaded', function(){
     const view = new MazeView("maze", map, exit,);
     const maze = new Maze(map);
     
-    maze.setMark(start, true);
-
-    start.step = 0;
 
     async function queueSolve() {
+
         const queue = new Queue();
-        queue.enqueue(start);
+
+        maze.setMark(start, true);
+        queue.enqueue({
+            location: start,
+            step: 0
+        });
 
         while (queue.count() > 0) {
             await timer(delay);
-            const current = queue.dequeue();
+            const {location: current, step} = queue.dequeue();
 
             view.makeCurrent(current);
-            view.setText(current, current.step);
+            view.setText(current, step);
 
             if (current.equals(exit))
                 break;
 
             for (let neighbor of maze.neighbors(current)) {
                 if (!maze.getMark(neighbor)) {
-                    neighbor.step = current.step + 1;
-
-                    queue.enqueue(neighbor);
+                    queue.enqueue({
+                        location: neighbor,
+                        step: step + 1
+                    });
 
                     maze.setMark(neighbor);
                     view.makeExpected(neighbor);
@@ -52,25 +56,32 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     async function stackSolve() {
+
         const stack = new Stack();
-        stack.push(start);
+
+        maze.setMark(start, true);
+        stack.push({
+            location:
+            start, step: 0
+        });
 
         while (stack.count() > 0) {
 
             await timer(delay);
-            const current = stack.pop();
+            const {location: current, step} = stack.pop();
 
             view.makeCurrent(current);
-            view.setText(current, current.step);
+            view.setText(current, step);
 
             if (current.equals(exit))
                 break;
 
             for (let neighbor of maze.neighbors(current)) {
                 if (!maze.getMark(neighbor)) {
-                    neighbor.step = current.step + 1;
-
-                    stack.push(neighbor);
+                    stack.push({
+                        location: neighbor,
+                        step: step + 1
+                    });
 
                     maze.setMark(neighbor);
                     view.makeExpected(neighbor);
@@ -81,17 +92,23 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 
     async function sortedSolve() {
+
         const list = new SortList("distance");
-        start.distance = start.distFrom(exit);
-        list.put(start);
+
+        maze.setMark(start, true);
+        list.put({
+            location: start,
+            step: 0,
+            distance:start.distFrom(exit)
+        });
 
         while (list.count() > 0) {
 
             await timer(delay);
-            const current = list.get();
+            const {location: current, step: step} = list.get(); // distance not necessary here, thrown away
 
             view.makeCurrent(current);
-            view.setText(current, current.step);
+            view.setText(current, step);
 
             if (current.equals(exit))
                 break;
@@ -100,8 +117,11 @@ window.addEventListener('DOMContentLoaded', function(){
                 if (!maze.getMark(neighbor)) {
                     neighbor.step = current.step + 1;
 
-                    neighbor.distance = neighbor.distFrom(exit);
-                    list.put(neighbor);
+                    list.put({
+                        location: neighbor,
+                        step: step + 1,
+                        distance: neighbor.distFrom(exit)
+                    });
 
                     maze.setMark(neighbor);
                     view.makeExpected(neighbor);

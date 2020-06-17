@@ -61,7 +61,7 @@ class SortList {
      */
     put(item) {
         for (let i = 0; i < this.count(); i++) {
-            if (item[this.propName] < this.list[i][this.propName]) {
+            if (item[this.propName] <= this.list[i][this.propName]) {
                 this.list.splice(i, 0, item);
                 return;
             }
