@@ -10,12 +10,15 @@ import {SortList} from "./dynamicStructures.mjs";
 import {map, start, exit} from "./data/largeMaze.mjs";
 // import {map, start, exit} from "./data/countryMap.mjs";
 
+
+const delay = 50;
+
+
 window.addEventListener('DOMContentLoaded', function(){
 
-    const view = new MazeView("maze", map, exit,);
-    const maze = new Maze(map);
 
 });
 
-
-
+function timer(ms) {
+    return new Promise(res => setTimeout(res, ms));
+}
