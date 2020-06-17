@@ -55,6 +55,13 @@ class Vector {
         // return Math.max(Math.abs(this.x - otherVector.x), Math.abs(this.y - otherVector.y));
     }
 
+    /**
+     *
+     * @returns {string}
+     */
+    toString(){
+        return `[${this.x}, ${this.y}]`;
+    }
 }
 
 export {Vector};
